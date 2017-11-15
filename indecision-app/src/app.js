@@ -4,6 +4,7 @@ import AddOption from './components/AddOption';
 import Option from './components/Option';
 import Options from './components/Options';
 import Action from './components/Action';
+import Header from './components/Header';
 
 class IndecisionApp extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class IndecisionApp extends React.Component {
     if (!option) {
       return 'Enter valid value to add option';
     } else if (this.state.options.indexOf(option) > -1) {
-      return 'This option already exists';
+      return 'This option aleady exists';
     }
 
     this.setState((prevState) => ({options: prevState.options.concat(option)}));
@@ -91,19 +92,6 @@ class IndecisionApp extends React.Component {
       </div>
     );
   }
-}
-
-const Header = (props) => {
-  return (
-    <div>test
-      <h1>{props.title}</h1>
-      {props.subtitle && <h2>{props.subtitle}</h2>}
-    </div>
-  );
-};
-
-Header.defaultProps = {
-  title: 'Indecision'
 }
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
