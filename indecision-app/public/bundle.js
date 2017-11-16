@@ -973,7 +973,24 @@ var _IndecisionApp2 = _interopRequireDefault(_IndecisionApp);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_IndecisionApp2.default, null), document.getElementById('app'));
+var Layout = function Layout() {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'p',
+      null,
+      'header'
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      'footer'
+    )
+  );
+};
+
+_reactDom2.default.render(_react2.default.createElement(Layout, null), document.getElementById('app'));
 
 /***/ }),
 /* 16 */
@@ -21218,27 +21235,53 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var IndecisionApp = function (_React$Component) {
   _inherits(IndecisionApp, _React$Component);
 
-  function IndecisionApp(props) {
+  function IndecisionApp() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, IndecisionApp);
 
-    var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
-    _this.handlePick = _this.handlePick.bind(_this);
-    _this.handleAddOption = _this.handleAddOption.bind(_this);
-    _this.handleDeleteOptionSingular = _this.handleDeleteOptionSingular.bind(_this);
-
-    _this.state = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       options: []
-    };
-    return _this;
+    }, _this.handleDeleteOptions = function () {
+      _this.setState(function () {
+        return { options: [] };
+      });
+    }, _this.handleDeleteOptionSingular = function (optionToRemove) {
+      _this.setState(function (prevState) {
+        return {
+          options: prevState.options.filter(function (option) {
+            return option !== optionToRemove;
+          })
+        };
+      });
+    }, _this.handlePick = function () {
+      var randomNum = Math.floor(Math.random() * _this.state.options.length);
+      var option = _this.state.options[randomNum];
+      alert(option);
+    }, _this.handleAddOption = function (option) {
+      if (!option) {
+        return 'Enter valid value to add option';
+      } else if (_this.state.options.indexOf(option) > -1) {
+        return 'This option aleady exists';
+      }
+
+      _this.setState(function (prevState) {
+        return { options: prevState.options.concat(option) };
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
-
-  // life cycle methods
-
 
   _createClass(IndecisionApp, [{
     key: 'componentDidMount',
+
+
+    // life cycle methods
     value: function componentDidMount() {
       try {
         var json = localStorage.getItem('options');
@@ -21263,44 +21306,6 @@ var IndecisionApp = function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       console.log('componentWillUnmount');
-    }
-  }, {
-    key: 'handleDeleteOptions',
-    value: function handleDeleteOptions() {
-      this.setState(function () {
-        return { options: [] };
-      });
-    }
-  }, {
-    key: 'handleDeleteOptionSingular',
-    value: function handleDeleteOptionSingular(optionToRemove) {
-      this.setState(function (prevState) {
-        return {
-          options: prevState.options.filter(function (option) {
-            return option !== optionToRemove;
-          })
-        };
-      });
-    }
-  }, {
-    key: 'handlePick',
-    value: function handlePick() {
-      var randomNum = Math.floor(Math.random() * this.state.options.length);
-      var option = this.state.options[randomNum];
-      alert(option);
-    }
-  }, {
-    key: 'handleAddOption',
-    value: function handleAddOption(option) {
-      if (!option) {
-        return 'Enter valid value to add option';
-      } else if (this.state.options.indexOf(option) > -1) {
-        return 'This option aleady exists';
-      }
-
-      this.setState(function (prevState) {
-        return { options: prevState.options.concat(option) };
-      });
     }
   }, {
     key: 'render',
@@ -21360,36 +21365,36 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AddOption = function (_React$Component) {
   _inherits(AddOption, _React$Component);
 
-  function AddOption(props) {
+  function AddOption() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, AddOption);
 
-    var _this = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.handleAddOption = _this.handleAddOption.bind(_this);
-
-    _this.state = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       error: undefined
-    };
-    return _this;
-  }
-
-  _createClass(AddOption, [{
-    key: 'handleAddOption',
-    value: function handleAddOption(e) {
+    }, _this.handleAddOption = function (e) {
       e.preventDefault();
 
       var option = e.target.elements.option.value.trim();
-      var error = this.props.handleAddOption(option);
+      var error = _this.props.handleAddOption(option);
 
-      this.setState(function () {
+      _this.setState(function () {
         return { error: error };
       });
 
       if (!error) {
         e.target.elements.option.value = '';
       }
-    }
-  }, {
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(AddOption, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
